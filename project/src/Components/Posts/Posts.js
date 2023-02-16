@@ -36,10 +36,9 @@ setProduct(allPost)
           <span>View more</span>
         </div>
         <div className="cards">
-          {product.map(product =>{
-
-        return ( 
-              <div
+          {
+          product.map((product,key)=>{
+        return <div key={key}
             className="card"
             // key={product.id}
             onClick={()=>{
@@ -63,9 +62,10 @@ setProduct(allPost)
               <span>{product.createdAtd}</span>
             </div>
           </div>
-        )
+        
           })
          }
+
         </div>
       </div>
       <div className="recommendations">

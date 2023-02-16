@@ -4,7 +4,7 @@ import { postContext } from '../../store/postContext';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import './View.css';
  function View() {
-  const [userDetails,setUserDetails] = useState()
+  const [userDetails,setUserDetails] = useState({})
   const {postDetails} = useContext(postContext)
   const {db} = useContext(firebaseContext)
   
@@ -17,7 +17,7 @@ import './View.css';
       const querySnapshot =  await getDocs(queryFromUser);
       querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
+        setUserDetails(doc.data())
       });
     }
     
@@ -27,21 +27,21 @@ import './View.css';
     <div className="viewParentDiv">
       <div className="imageShowDiv">
         <img
-          src="../../../Images/R15V3.jpg"
+          src={postDetails.image}
           alt=""
         />
       </div>
       <div className="rightSection">
         <div className="productDetails">
-          <p>&#x20B9; 250000 </p>
-          <span>YAMAHA R15V3</span>
-          <p>Two Wheeler</p>
-          <span>Tue May 04 2021</span>
+          <p>&#x20B9; {postDetails.price} </p>
+          <span>{postDetails.category} </span>
+          <p>{postDetails.name} </p>
+          <span>{postDetails.createdAt} </span>
         </div>
         <div className="contactDetails">
           <p>Seller details</p>
-          <p>No name</p>
-          <p>1234567890</p>
+          <p>{userDetails.username}</p>
+          <p>{userDetails.phone}</p>
         </div>
       </div>
     </div>
